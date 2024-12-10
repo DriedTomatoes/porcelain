@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
 class Employee(models.Model):
 
@@ -24,35 +25,38 @@ class Product(models.Model):
 
     id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=100)
-    description = models.TextField()
-    price = models.FloatField()
-    photo = models.URLField()
-    introduction_date = models.DateField()
-    producer = models.CharField (max_length=100)
-    stock = models.IntegerField()
-    SKU = models.IntegerField()
-    category = models.CharField (max_length=3, choices = CATEGORIES)
+    description = models.TextField(default="")
+    price = models.FloatField(default=0)
+    photo = models.URLField(default="")
+    introduction_date = models.DateField(default = 0)
+    producer = models.CharField (max_length=100,default="")
+    stock = models.IntegerField(default=0)
+    SKU = models.IntegerField(default=0)
+    category = models.CharField (max_length=3, choices = CATEGORIES, default="TAB")
 
 
 class Discount(models.Model):
     id = models.IntegerField(primary_key=True)
     name = models.CharField (max_length=100)
-    description = models.TextField()
+    description = models.TextField(default="")
     percentage = models.FloatField (default=0.0)
     start_date = models.DateField
     products = models.ManyToManyField(Product)
     end_date = models.DateField
 
-class Client(models.Model):
+class Client(AbstractUser):
     id = models.IntegerField(primary_key=True)
     email = models.CharField (max_length=100)
     name = models.CharField (max_length=100)
     password = models.CharField (max_length=100)
-    login = models.CharField (max_length=100)
+    login = models.CharField (max_length=100, unique=True)
     firstname = models.CharField (max_length=20)
     lastname = models.CharField(max_length=100)
     phone = models.CharField (max_length=12)
     wishlist = models.ManyToManyField(Product)
+
+    USERNAME_FIELD = 'login'
+    REQUIRED_FIELDS = []
 
 class Order(models.Model):
     STATUS = [
@@ -72,18 +76,18 @@ class Order(models.Model):
         ("CR", "Card")
     ]
     id = models.IntegerField(primary_key=True)
-    date = models.DateField()
-    amount = models.FloatField()
-    status = models.CharField (max_length=3, choices = STATUS)
+    date = models.DateField(default="")
+    amount = models.FloatField(default=0)
+    status = models.CharField (max_length=3, choices = STATUS, default="PEN")
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
-    destination_country = models.CharField (max_length=12, choices=COUNTRY)
-    destination_region = models.CharField (max_length=20)
-    destination_city = models.CharField (max_length=20)
-    destination_postcode = models.CharField (max_length=10)
-    payment_method = models.CharField (max_length=2, choices = METHOD)
+    destination_country = models.CharField (max_length=12, choices=COUNTRY, default="PL")
+    destination_region = models.CharField (max_length=20, default="")
+    destination_city = models.CharField (max_length=20, default="")
+    destination_postcode = models.CharField (max_length=10, default="")
+    payment_method = models.CharField (max_length=2, choices = METHOD, default="CR")
 
 class Cart(models.Model):
     id = models.IntegerField(primary_key=True)
-    amount = models.IntegerField()
+    amount = models.IntegerField(default=0)
     products = models.ManyToManyField(Product)
 

@@ -1,7 +1,11 @@
-from django.http import HttpResponse
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
+
+class RegisterAPIView(APIView):
+    def post(self, request):
+        return Response(request.data)
 
 
 
-def index(request):
-    return HttpResponse("Hello, world. You're at the shop index.")
 # Create your views here.
