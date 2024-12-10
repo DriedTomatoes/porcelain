@@ -85,4 +85,5 @@ class Order(models.Model):
 class Cart(models.Model):
     id = models.IntegerField(primary_key=True)
     amount = models.IntegerField()
+    products = models.ManyToManyField(Product)
 
