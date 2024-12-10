@@ -42,15 +42,14 @@ class Discount(models.Model):
     end_date = models.DateField
 
 class Client(AbstractUser):
-    email = models.CharField (max_length=100)
+    email = models.CharField (max_length=100,unique=True)
     password = models.CharField (max_length=100)
-    login = models.CharField (max_length=100, unique=True)
+    username = models.CharField (max_length=100,unique=True)
     first_name = models.CharField (max_length=20)
     last_name = models.CharField(max_length=100)
     phone = models.CharField (max_length=12)
     wishlist = models.ManyToManyField(Product)
 
-    USERNAME_FIELD = 'login'
     REQUIRED_FIELDS = []
 
 class Order(models.Model):
