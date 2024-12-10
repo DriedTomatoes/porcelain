@@ -8,7 +8,6 @@ class Employee(models.Model):
         ("A","Administrator")
     ]
 
-    id = models.IntegerField(primary_key=True)
     password = models.CharField (max_length=100)
     login = models.CharField (max_length=100)
     firstname = models.CharField (max_length=20)
@@ -23,7 +22,6 @@ class Product(models.Model):
         ("DEC", "Decorations")
     ]
 
-    id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=100)
     description = models.TextField(default="")
     price = models.FloatField(default=0)
@@ -36,7 +34,6 @@ class Product(models.Model):
 
 
 class Discount(models.Model):
-    id = models.IntegerField(primary_key=True)
     name = models.CharField (max_length=100)
     description = models.TextField(default="")
     percentage = models.FloatField (default=0.0)
@@ -45,13 +42,11 @@ class Discount(models.Model):
     end_date = models.DateField
 
 class Client(AbstractUser):
-    id = models.IntegerField(primary_key=True)
     email = models.CharField (max_length=100)
-    name = models.CharField (max_length=100)
     password = models.CharField (max_length=100)
     login = models.CharField (max_length=100, unique=True)
-    firstname = models.CharField (max_length=20)
-    lastname = models.CharField(max_length=100)
+    first_name = models.CharField (max_length=20)
+    last_name = models.CharField(max_length=100)
     phone = models.CharField (max_length=12)
     wishlist = models.ManyToManyField(Product)
 
