@@ -1,7 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
-#testowanie 
+#testowanie
+# testownaie 2  
 
 class Product(models.Model):
     CATEGORIES = [
