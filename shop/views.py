@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import exceptions
 from .serializers import ClientSerializer
-from .models import Client
+from .models import User
 
 
 class RegisterAPIView(APIView):
@@ -25,7 +25,7 @@ class LoginAPIView(APIView):
             username = request.data['username']
             password = request.data['password']
 
-            client = Client.objects.filter(username=username).first()
+            client = User.objects.filter(username=username).first()
             if client is None:
                 raise exceptions.AuthenticationFailed('Client does not exist')
 

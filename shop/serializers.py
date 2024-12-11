@@ -1,9 +1,9 @@
 from rest_framework.serializers import ModelSerializer
-from .models import Client
+from .models import User
 
 class ClientSerializer(ModelSerializer):
     class Meta:
-        model = Client
+        model = User
         fields = ['email','password', 'username', 'first_name', 'last_name', 'phone']
         extra_kwargs = {
             'password': {'write_only': True},

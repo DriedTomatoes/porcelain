@@ -79,9 +79,9 @@ WSGI_APPLICATION = 'porcelain.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'shop_db',
+        'NAME': 'shop',
         'USER': 'u1',
-        'PASSWORD': '213123897$%1231',
+        'PASSWORD': 'admin',
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }
@@ -129,4 +129,4 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'shop.Client'
+AUTH_USER_MODEL = 'shop.User'
