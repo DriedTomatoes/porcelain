@@ -28,7 +28,7 @@ class LoginAPIView(APIView):
             username = request.data['username']
             password = request.data['password']
 
-            client = User.objects.filter(username=username).first()
+            client = Client.objects.filter(username=username).first()
             if client is None:
                 raise exceptions.AuthenticationFailed('Client does not exist')
 

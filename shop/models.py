@@ -1,6 +1,19 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
+class Employee(models.Model):
+
+    POSITIONS = [
+        ("E","Employee"),
+        ("A","Administrator")
+    ]
+
+    password = models.CharField (max_length=100)
+    login = models.CharField (max_length=100)
+    firstname = models.CharField (max_length=20)
+    lastname = models.CharField(max_length=100)
+    phone = models.CharField (max_length=12)
+    position = models.CharField (max_length=2, choices = POSITIONS)
 
 class Product(models.Model):
     CATEGORIES = [
@@ -28,7 +41,7 @@ class Discount(models.Model):
     products = models.ManyToManyField(Product)
     end_date = models.DateField
 
-class User(AbstractUser):
+class Client(AbstractUser):
     email = models.CharField (max_length=100,unique=True)
     password = models.CharField (max_length=100)
     username = models.CharField (max_length=100,unique=True)
@@ -36,14 +49,6 @@ class User(AbstractUser):
     last_name = models.CharField(max_length=100)
     phone = models.CharField (max_length=12)
     wishlist = models.ManyToManyField(Product)
-
-    TYPE_OF_USER = [
-        ("C","Client"),
-        ("E","Employee"),
-        ("A","Administrator")
-    ]
-    position = models.CharField (max_length=2, choices = TYPE_OF_USER)
-
 
     REQUIRED_FIELDS = []
 
@@ -71,17 +76,15 @@ class Order(models.Model):
     date = models.DateField(default="")
     amount = models.FloatField(default=0)
     status = models.CharField (max_length=3, choices = STATUS, default="PEN")
-    client = models.ForeignKey(User, on_delete=models.CASCADE)
+    client = models.ForeignKey(Client, on_delete=models.CASCADE)
     destination_country = models.CharField (max_length=12, choices=COUNTRY, default="PL")
     destination_region = models.CharField (max_length=20, default="")
     destination_city = models.CharField (max_length=20, default="")
     destination_postcode = models.CharField (max_length=10, default="")
     payment_method = models.CharField (max_length=2, choices = METHOD, default="CR")
-    
 
 class Cart(models.Model):
     id = models.IntegerField(primary_key=True)
     amount = models.IntegerField(default=0)
     products = models.ManyToManyField(Product)
-    order = models.ForeignKey(Order, on_delete=models.CASCADE,default=1)
 

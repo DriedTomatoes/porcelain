@@ -3,7 +3,7 @@ from .models import User
 from .models import Product
 class ClientSerializer(ModelSerializer):
     class Meta:
-        model = User
+        model = Client
         fields = ['email','password', 'username', 'first_name', 'last_name', 'phone']
         extra_kwargs = {
             'password': {'write_only': True},
