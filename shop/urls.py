@@ -1,5 +1,4 @@
 from django.urls import include, path
-
 from .views import RegisterAPIView, LoginAPIView
 
 urlpatterns = [
@@ -7,3 +6,4 @@ urlpatterns = [
     path("login", LoginAPIView.as_view()),
 
 ]
+

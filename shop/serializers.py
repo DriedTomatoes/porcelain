@@ -1,6 +1,6 @@
 from rest_framework.serializers import ModelSerializer
 from .models import User
-
+from .models import Product
 class ClientSerializer(ModelSerializer):
     class Meta:
         model = User
@@ -17,4 +17,12 @@ class ClientSerializer(ModelSerializer):
         instance.save()
         return instance
 
+class ProductSerializer(ModelSerializer):
+    class Meta:
+        model = Product
+        fields = ['name','description','price','photo','producer','stock','SKU','category']
+
+    def create(self, validated_data):
+        return Product.objects.create(**validated_data)
+    
 

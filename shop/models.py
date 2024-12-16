@@ -13,7 +13,7 @@ class Product(models.Model):
     description = models.TextField(default="")
     price = models.FloatField(default=0)
     photo = models.URLField(default="")
-    introduction_date = models.DateField(default = 0)
+    introduction_date = models.DateField(auto_now_add=True)
     producer = models.CharField (max_length=100,default="")
     stock = models.IntegerField(default=0)
     SKU = models.IntegerField(default=0)
@@ -46,6 +46,9 @@ class User(AbstractUser):
 
 
     REQUIRED_FIELDS = []
+
+    def __str__(self):
+        return self.last_name
 
 class Order(models.Model):
     STATUS = [

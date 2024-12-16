@@ -3,7 +3,10 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import exceptions
 from .serializers import ClientSerializer
-from .models import User
+from .serializers import ProductSerializer
+from .models import User,Product
+from django.http import HttpResponse
+from rest_framework import status
 
 
 class RegisterAPIView(APIView):
@@ -36,3 +39,19 @@ class LoginAPIView(APIView):
 
             return Response(serializer.data)
 # Create your views here.
+
+def create_product(request):
+     serializer = ProductSerializer(request.data)
+     if serializer.is_valid():
+          serializer.save()
+          return Response({
+               "status": "success",
+               "message" : "Produkt zostal utworzony pomyslnie",
+               "data" : serializer.data
+          }, status=status.HTTP_201_CREATED)
+     else:
+          return Response({
+               "status" : "error",
+               "message" : "Blad walidacji",
+               "errors" : serializer.errors
+          }, status= status.HTTP_400_BAD_REQUEST)
